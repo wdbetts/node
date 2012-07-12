@@ -1,3 +1,7 @@
+//wdbetts@gmail.com
+//Use self-executing anonymous function to create intervalGenerator that will contain variable scope
+//and prevent pollution of the global namespace. Also helps to create a library bound to a 'namespace'
+//that will not conflict with other libraries.
 var intervalGenerator = (function () {
     var startTime,
         maxTimeInt,
@@ -7,9 +11,7 @@ var intervalGenerator = (function () {
         startTime = new Date().getTime()
         maxTimeInt = 0;
         displayOrder = 1;
-        console.log("Random" + "\t" + "Generated Order" + "\t" + "Time" + "\t" + "Display Order");
     }
-
 
     function logIntervalData(order, timeInterval) {
         var randNumber = Math.round(Math.random() * 101);
@@ -23,7 +25,8 @@ var intervalGenerator = (function () {
     }
 
     function run() {
-
+        //output column headers
+        console.log("Random" + "\t" + "Generated Order" + "\t" + "Time" + "\t" + "Display Order");
 
         for (var timeIntCount = 0; timeIntCount < 100; timeIntCount++) {
             //Generate random number between 0-5, add 5 so it will 5-10
@@ -38,11 +41,13 @@ var intervalGenerator = (function () {
         setTimeout(logCompletionTime, maxTimeInt * 1000, startTime);
     }
 
+    //Expose public API for the module/library
     return {
         initModule:initModule,
         run:run
     }
 })();
 
+//Run it
 intervalGenerator.initModule();
 intervalGenerator.run();
